@@ -47,8 +47,6 @@ class Main:
                 zero_error = False 
                 save = True
                 while True: 
-                    self.ui.clear() 
-
                     if int_error:  print("[red]integer value only[/red]")
                     if zero_error: print("[red]minimum 1 iteration[/red]")
                     
@@ -84,7 +82,7 @@ class Main:
                 if not self.folder_linked and not self.coder_mode: 
                     link, index = self.ui.folder_linked()
                     
-                    if index:  folder_index.Indexing().run(link) 
+                    if index:  folder_index.Indexing(link).run() 
                     elif link: folder_linked.FolderLinked(link)
 
                     self.folder_linked = link
@@ -112,7 +110,7 @@ class Main:
 
             case "/commands": 
                 txt = f"""[{self.ui.c1}][bold]
-                \nCommands:\n {"/switch_to_local" if self.gen_type == "api" else "/switch_to_api"}\n /link_folder\n /max_iteration\n /model\n /vision_mode\n /coder_mode\n /settings\n /skills\n /telegram\n /reset
+                \nCommands:\n {"/switch_to_local" if self.gen_type == "api" else "/switch_to_api"}\n /link_folder\n /max_iteration\n /model\n /vision_mode\n /coder_mode\n /skills\n /telegram\n /reset
                 [/bold][{self.ui.c1}]"""
                 print(txt)
 
@@ -128,14 +126,18 @@ class Main:
             case "/reset": yield "/reset"
 
             case "/telegram": 
-                api, choose = self.ui.telegram() 
-                if choose == "/run": 
+                while True: 
+                    api, choose = self.ui.telegram() 
                     self.tg_api_bot = api
-                    threading.Thread(target=lambda: telegram.run_bot(api, self.match_request, self.model), daemon=True).start()
-                    yield "running: true", "message"
-                elif choose == "/exit": 
-                    return 
-                
+                    if choose == "/run": 
+                        self.config_save() 
+                        threading.Thread(target=lambda: telegram.run_bot(api, self.match_request, self.model), daemon=True).start()
+                        yield "running: [green]true[/green]", "response"
+                        break
+                    elif choose == "/exit": 
+                        return 
+                    elif choose == "/change_api": 
+                        continue
             case _:  
                 for text in self.AI.run(request):
                     yield text
@@ -187,7 +189,7 @@ class Main:
         if self.gen_type == "local": 
             if not os.path.exists(self.model): 
                 
-                model = self.ui.inputr("Enter Model Path (.gguf) << ", self.ui.c1)
+                model = input("Enter Model Path (.gguf) << ")
                 if model != "/exit": 
                     self.model = model 
                 else:
@@ -200,9 +202,11 @@ class Main:
 
 
     def __init__(self):
-        import UI
-        self.ui = UI
         self.config_load() 
         self.load_ai()
+        
+        import UI
+        self.ui = UI
+
 if __name__ == "__main__": 
     Main().run()
