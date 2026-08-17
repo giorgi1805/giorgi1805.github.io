@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="ru">
 <head>
@@ -5,32 +6,831 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Исходный код HS 0.7">
 <title>HS 0.7 · Source</title>
+
 <style>
-:root{--bg:#0a0a0a;--canvas:#000;--panel:#121212;--border:#3b3b3b;--text:#f2f2f2;--muted:#a0a0a0;--link:#fff;--hover:#f2f2f2;--mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.top{height:64px;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 max(24px,calc((100vw - 1280px)/2));gap:18px;background:var(--canvas)}.mark{font:28px var(--mono);color:#fff;text-decoration:none}.repo{font-weight:600;color:#fff;text-decoration:none}.slash{color:var(--muted)}.repo b{color:#fff}.back{margin-left:auto;color:var(--text);text-decoration:none;border:1px solid var(--border);border-radius:6px;padding:7px 11px;background:#090909}.back:hover{background:#fff;color:#000;border-color:#fff}main{max-width:1280px;margin:auto;padding:28px 24px 48px}.crumb{display:flex;align-items:center;gap:10px;padding-bottom:20px;border-bottom:1px solid var(--border)}.crumb strong{font-size:20px}.tag{color:var(--muted);font:12px var(--mono);border:1px solid var(--border);border-radius:20px;padding:4px 9px}.layout{display:grid;grid-template-columns:280px minmax(0,1fr);border:1px solid var(--border);border-radius:7px;overflow:hidden;margin-top:18px;min-height:680px;background:#000}.sidebar{background:var(--canvas);border-right:1px solid var(--border)}.search{padding:14px;border-bottom:1px solid var(--border)}input{width:100%;color:var(--text);background:#111;border:1px solid var(--border);border-radius:6px;padding:9px 10px;outline:0}input:focus{border-color:#fff;box-shadow:0 0 0 3px #ffffff26}.tree{padding:8px;max-height:622px;overflow:auto}.folder{margin:10px 7px 4px;color:var(--muted);font:11px var(--mono)}button.file{display:block;width:100%;padding:8px 9px;border:0;border-radius:6px;background:none;color:var(--text);text-align:left;cursor:pointer;font:12px var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}button.file:hover{background:#242424;color:#fff}button.file.active{background:#fff;color:#000}.viewer{min-width:0;background:var(--bg);display:flex;flex-direction:column}.bar{min-height:62px;padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:16px;background:#0c0c0c}.bar strong{display:block;font:600 13px var(--mono)}.bar small{display:block;color:var(--muted);margin-top:4px;font:11px var(--mono)}.badge{color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:4px 8px;font:11px var(--mono)}pre{margin:0;flex:1;overflow:auto;padding:20px 24px;color:#d4d4d4;background:#080808;font:13px/1.6 var(--mono);tab-size:2;white-space:pre}.empty{padding:50px 25px;color:var(--muted);font:14px var(--mono)}.notice{margin-top:16px;color:var(--muted);font-size:12px}code{color:#d4d4d4}.tok-comment{color:#6a9955}.tok-string{color:#ce9178}.tok-keyword{color:#c586c0}.tok-number{color:#b5cea8}.tok-function{color:#dcdcaa}.tok-class{color:#4ec9b0}.tok-builtin{color:#569cd6}.tok-decorator{color:#d7ba7d}.tok-operator{color:#d4d4d4}@media(max-width:760px){.top{padding:0 16px}.layout{grid-template-columns:1fr}.sidebar{border-right:0;border-bottom:1px solid var(--border)}.tree{max-height:230px}.back{font-size:12px}main{padding:18px 16px}.crumb strong{font-size:17px}pre{padding:16px;font-size:11px}}
+:root{
+  --bg:#0a0a0a;
+  --canvas:#000;
+  --panel:#121212;
+  --border:#3b3b3b;
+  --text:#f2f2f2;
+  --muted:#a0a0a0;
+  --link:#fff;
+  --hover:#f2f2f2;
+  --mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace
+}
+
+*{
+  box-sizing:border-box
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+}
+
+.top{
+  height:64px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  padding:0 max(24px,calc((100vw - 1280px)/2));
+  gap:18px;
+  background:var(--canvas)
+}
+
+.mark{
+  font:28px var(--mono);
+  color:#fff;
+  text-decoration:none
+}
+
+.repo{
+  font-weight:600;
+  color:#fff;
+  text-decoration:none
+}
+
+.slash{
+  color:var(--muted)
+}
+
+.repo b{
+  color:#fff
+}
+
+.back{
+  margin-left:auto;
+  color:var(--text);
+  text-decoration:none;
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:7px 11px;
+  background:#090909
+}
+
+.back:hover{
+  background:#fff;
+  color:#000;
+  border-color:#fff
+}
+
+main{
+  max-width:1280px;
+  margin:auto;
+  padding:28px 24px 48px
+}
+
+.crumb{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--border)
+}
+
+.crumb strong{
+  font-size:20px
+}
+
+.tag{
+  color:var(--muted);
+  font:12px var(--mono);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:4px 9px
+}
+
+.layout{
+  display:grid;
+  grid-template-columns:280px minmax(0,1fr);
+  border:1px solid var(--border);
+  border-radius:7px;
+  overflow:hidden;
+  margin-top:18px;
+  min-height:680px;
+  background:#000
+}
+
+.sidebar{
+  background:var(--canvas);
+  border-right:1px solid var(--border)
+}
+
+.search{
+  padding:14px;
+  border-bottom:1px solid var(--border)
+}
+
+input{
+  width:100%;
+  color:var(--text);
+  background:#111;
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:9px 10px;
+  outline:0
+}
+
+input:focus{
+  border-color:#fff;
+  box-shadow:0 0 0 3px #ffffff26
+}
+
+.tree{
+  padding:8px;
+  max-height:622px;
+  overflow:auto
+}
+
+.folder{
+  margin:10px 7px 4px;
+  color:var(--muted);
+  font:11px var(--mono)
+}
+
+button.file{
+  display:block;
+  width:100%;
+  padding:8px 9px;
+  border:0;
+  border-radius:6px;
+  background:none;
+  color:var(--text);
+  text-align:left;
+  cursor:pointer;
+  font:12px var(--mono);
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap
+}
+
+button.file:hover{
+  background:#242424;
+  color:#fff
+}
+
+button.file.active{
+  background:#fff;
+  color:#000
+}
+
+.viewer{
+  min-width:0;
+  background:var(--bg);
+  display:flex;
+  flex-direction:column
+}
+
+.bar{
+  min-height:62px;
+  padding:12px 18px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  background:#0c0c0c
+}
+
+.bar strong{
+  display:block;
+  font:600 13px var(--mono)
+}
+
+.bar small{
+  display:block;
+  color:var(--muted);
+  margin-top:4px;
+  font:11px var(--mono)
+}
+
+.badge{
+  color:var(--muted);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:4px 8px;
+  font:11px var(--mono);
+  white-space:nowrap
+}
+
+pre{
+  margin:0;
+  flex:1;
+  overflow:auto;
+  padding:20px 24px;
+  color:#d4d4d4;
+  background:#080808;
+  font:13px/1.6 var(--mono);
+  tab-size:2;
+  white-space:pre;
+  min-height:0
+}
+
+.empty{
+  padding:50px 25px;
+  color:var(--muted);
+  font:14px var(--mono)
+}
+
+.notice{
+  margin-top:16px;
+  color:var(--muted);
+  font-size:12px
+}
+
+code{
+  color:#d4d4d4
+}
+
+.tok-comment{
+  color:#6a9955
+}
+
+.tok-string{
+  color:#ce9178
+}
+
+.tok-keyword{
+  color:#c586c0
+}
+
+.tok-number{
+  color:#b5cea8
+}
+
+.tok-function{
+  color:#dcdcaa
+}
+
+.tok-class{
+  color:#4ec9b0
+}
+
+.tok-builtin{
+  color:#569cd6
+}
+
+.tok-decorator{
+  color:#d7ba7d
+}
+
+.tok-operator{
+  color:#d4d4d4
+}
+
+.status-error{
+  color:#f48771
+}
+
+.status-loading{
+  color:#dcdcaa
+}
+
+@media(max-width:760px){
+  .top{
+    padding:0 16px
+  }
+
+  .layout{
+    grid-template-columns:1fr
+  }
+
+  .sidebar{
+    border-right:0;
+    border-bottom:1px solid var(--border)
+  }
+
+  .tree{
+    max-height:230px
+  }
+
+  .back{
+    font-size:12px
+  }
+
+  main{
+    padding:18px 16px
+  }
+
+  .crumb strong{
+    font-size:17px
+  }
+
+  pre{
+    padding:16px;
+    font-size:11px
+  }
+}
 </style>
 </head>
+
 <body>
-<header class="top"><a class="mark" href="index.html">◈</a><a class="repo" href="index.html">giorgi1805</a><span class="slash">/</span><a class="repo" href="source.html"><b>HS0.7SRC</b></a><a class="back" href="index.html">← На главную</a></header>
-<main><div class="crumb"><strong>HS 0.7 source code</strong><span class="tag" id="count"></span></div><section class="layout"><aside class="sidebar"><div class="search"><input id="search" type="search" placeholder="Поиск файла…" autocomplete="off"></div><div class="tree" id="tree"></div></aside><section class="viewer"><div class="bar"><div><strong id="filename">Выберите файл</strong><small id="filepath">HS0.7SRC</small></div><span class="badge" id="type">SOURCE</span></div><pre id="code" class="empty">Выберите файл в дереве слева, чтобы открыть его содержимое.</pre></section></section><p class="notice">Файлы встроены из локальной папки <code>HS0.7SRC</code>. Бинарные .exe и .dll отображаются в дереве, но не открываются как текст.</p></main>
+
+<header class="top">
+  <a class="mark" href="index.html">◈</a>
+
+  <a class="repo" href="index.html">
+    giorgi1805
+  </a>
+
+  <span class="slash">/</span>
+
+  <a class="repo" href="source.html">
+    <b>HS0.7SRC</b>
+  </a>
+
+  <a class="back" href="index.html">
+    ← На главную
+  </a>
+</header>
+
+
+<main>
+
+  <div class="crumb">
+    <strong>HS 0.7 source code</strong>
+    <span class="tag" id="count">loading...</span>
+  </div>
+
+
+  <section class="layout">
+
+    <aside class="sidebar">
+
+      <div class="search">
+        <input
+          id="search"
+          type="search"
+          placeholder="Поиск файла…"
+          autocomplete="off"
+        >
+      </div>
+
+      <div class="tree" id="tree">
+        <div class="empty">
+          Загрузка списка файлов...
+        </div>
+      </div>
+
+    </aside>
+
+
+    <section class="viewer">
+
+      <div class="bar">
+
+        <div>
+          <strong id="filename">
+            Выберите файл
+          </strong>
+
+          <small id="filepath">
+            HS0.7SRC
+          </small>
+        </div>
+
+        <span class="badge" id="type">
+          SOURCE
+        </span>
+
+      </div>
+
+
+      <pre id="code" class="empty">Выберите файл в дереве слева, чтобы открыть его содержимое.</pre>
+
+    </section>
+
+  </section>
+
+
+  <p class="notice">
+    Файлы загружаются напрямую из локальной папки
+    <code>HS0.7SRC</code>.
+    Исходный код не встраивается в HTML.
+    Бинарные <code>.exe</code> и <code>.dll</code>
+    отображаются в дереве, но не открываются как текст.
+  </p>
+
+</main>
+
+
 <script>
-const files=[{"path": "AI.py", "name": "AI.py", "size": 17964, "text": true, "content": "import parsing, json, re, math, os, time, sys, getpass\nfrom tool_call.classic import Classic \nfrom tool_call.coder import CoderMode\nfrom tool_call.vision import VisionMode as CVision \nfrom gguf import GGUFReader\nfrom multiprocessing import Process, Queue, Event\n\ndef error(erno): \n    os.system('cls') \n    print(f\"\\033[31mHS SYSTEM {erno}\\033[0m\")\n    os._exit(1) \n\nclass Start: \n    def truncate(self, value, limit=1399):\n        if isinstance(value, str):\n            if len(value) > limit:\n                return f\"{value[:limit]} ...{len(value) - limit} characters more\"\n            return value\n\n        if isinstance(value, list): \n            return [self.truncate(item, limit) for item in value]\n\n        if isinstance(value, dict): \n            return {key: self.truncate(val, limit) for key, val in value.items()}\n\n        return value\n\n    def load_history(self, prompt, reasoning, tool_call, response, system, iteration, model):\n        try: tool_call = json.loads(tool_call) if tool_call else None\n        except (json.JSONDecodeError, TypeError):    tool_call = None\n\n        if isinstance(tool_call, dict):\n            tool_call = {\n                **tool_call,\n                \"args\": self.truncate(tool_call.get(\"args\")),\n                \"kwargs\": self.truncate(tool_call.get(\"kwargs\")),\n            }\n\n        elif isinstance(tool_call, list):\n            tool_call = self.truncate(tool_call)\n\n        if iteration == 0:\n            self.history.append({\n                \"iteration №1\": {\n                    \"prompt\":          prompt, \n                    \"ai_reasoning\":    reasoning, \n                    \"ai_response\":     {\n                        \"tool_call\": tool_call, \n                        \"response\":  response\n                    }, \n                    \"return\":         system, \n                    \"model\":           {\n                        \"type\": self.gen_type, \n                        \"name\": model\n                    }\n                }\n            })\n        else:\n            self.history.append({\n                f\"iteration №{iteration + 1}\": {\n                    \"ai_reasoning\":    reasoning, \n                    \"ai_response\":     {\n                        \"tool_call\":   tool_call, \n                        \"response\":    response\n                    }, \n                    \"return\":          system,\n                }\n            })\n\n        with open(\"metadata/history.json\", \"w\", encoding=\"utf-8\") as f: \n            json.dump(self.history, f, indent=4, ensure_ascii=False)\n\n    def get_result(self, block=True, timeout=None):\n        try:\n            result = self.AI.output_queue.get(block=block, timeout=timeout)\n            \n            if result[0] == \"error\":\n                raise Exception(f\"{result}\")\n\n            if result[0] == \"result\":\n                _, th, tc, rp = result\n                return th, tc, rp\n\n        except KeyboardInterrupt:\n            self.stop_generation()\n            return None, None, \"[red][bold]generation iterrupted[/bold][/red]\"\n        \n    def run(self, prompt):   \n        mode = 0\n        if not hasattr(self, \"AI\"): \n            self.AI = AI(self.gen_type, self.model)\n        \n        if not self.AI.is_loaded(): \n            yield \"loading AI...\", \"loading\"\n\n        while not self.AI.is_loaded(): \n            time.sleep(0.01)\n\n        if self.vision_mode: \n            if \"/vision\" in prompt: mode = 1\n        if self.coder_mode: \n            if \"/coder\" in prompt:  mode = 2 \n\n        instructions = None \n        \n        for iteration in range(self.max_iteration):\n            yield f\"Iteration №{iteration + 1}\", \"loading\"\n\n            if iteration > 2:\n                if (\n                        self.history[iteration - 1][f\"iteration №{iteration}\"].get(\"return\") == [''] \n                    and self.history[iteration - 2][f\"iteration №{iteration - 1}\"].get(\"return\") == ['']\n                ): # impostor syndrome\n                    self.history = []\n                    yield \"[bold]AI agent has finished its work[/bold]\", \"response\"\n                    return\n\n            if not mode:    instructions = self.classic_instructions \n            if mode == 1:   instructions = self.vision_instructions \n            elif mode == 2: instructions = self.coder_instructions\n\n            if iteration:\n                instructions = instructions.replace(\"<iteration>\", str(iteration + 1))\n                instructions = instructions.replace(\"HISTORY: <NONE>\", (\"HISTORY: \" + str(self.history)))\n                instructions = instructions.replace(\"**prompt**\", \"\")\n            else:instructions = instructions.replace(\"<iteration>\", \"first\")\n\n            if mode == 1 and self.vision_mode: \n                instructions = instructions.replace(\"<screenshot>\", self.ocr.return_json())\n\n            if self.gen_type == \"api\": \n                content = (instructions + \"\\n\" + prompt) if not iteration else instructions\n            else:\n                content = [{\"role\": \"user\", \"content\": (instructions + \"\\n\" + prompt) if not iteration else instructions}]\n\n            try: \n                try:\n                    self.AI.generate(content) \n                except KeyboardInterrupt: \n                    self.AI.stop_generation()\n                    return \n\n                reasoning, tool_call, response = self.get_result()\n            except Exception as e: \n                yield \"[red]ERROR[/red]\", \"response\"\n                error(e) \n\n            if tool_call:\n                if mode == 0:   system = parsing.run(Classic(), tool_call)\n                elif mode == 1: system = parsing.run(CVision(), tool_call)\n                elif mode == 2: system = parsing.run(CoderMode(), tool_call) \n\n                if isinstance(system, str): \n                    system = [system]\n            else: system = [\"\"]\n\n            self.load_history(prompt, reasoning, tool_call, response, system, iteration, self.model)\n\n            data = self.history[iteration][f\"iteration №{iteration + 1}\"]\n            if data[\"ai_response\"].get(\"response\"): \n                yield data[\"ai_response\"].get(\"response\"), \"response\"\n                if not iteration and not data[\"ai_response\"].get(\"tool_call\", None):\n                    return\n\n            try:\n                if data.get(\"return\") == [\"__classic mode__\"]:  yield \"AI agent environment transfered to [bold]classic mode[/bold]\", \"response\"; mode = 0\n                if data.get(\"return\") == [\"__vision mode__\"]:   yield \"AI agent environment transfered to [bold]vision mode[/bold]\", \"response\";  mode = 1\n                if data.get(\"return\") == [\"__coder mode__\"]:    yield \"AI agent environment transfered to [bold]coder mode[/bold]\", \"response\";   mode = 2\n                if data.get(\"return\") == ['__clear history__']: self.history = [{f\"iteration {iteration}\": {f\"in previous iteration you cleaned history to avoid polluting the context window, note: {system[0][1] if system[0][1] else None}\"}}]\n            except TypeError: pass\n\n            try:                                          tool = data[\"ai_response\"][\"tool_call\"][0].get(\"tool\") if data[\"ai_response\"][\"tool_call\"] else None\n            except (KeyError, TypeError, AttributeError): tool = data[\"ai_response\"][\"tool_call\"].get(\"tool\") if data[\"ai_response\"][\"tool_call\"] else None\n            \n            if tool == \"end\":\n                self.history = []\n                yield \"[bold]AI agent has finished its work[/bold]\", \"response\"\n                return  \n\n    def read(self, path): \n        try: \n            with open(path, \"r\", encoding=\"utf-8\") as f: return f.read()\n        except FileNotFoundError: return \"\" \n\n    def replacements(self, text):\n        fld = self.read(\"metadata/folder_linked_data.txt\")\n        skl = self.read(\"metadata/skills.txt\")\n\n        def get_volume():\n            try:\n                from pycaw.pycaw import AudioUtilities\n                return int((AudioUtilities.GetSpeakers().EndpointVolume.GetMasterVolumeLevelScalar()) * 100)\n            except OSError: \n                import pythoncom\n                pythoncom.CoInitialize()\n                from pycaw.pycaw import AudioUtilities\n                volume = int((AudioUtilities.GetSpeakers().EndpointVolume.GetMasterVolumeLevelScalar()) * 100)\n                pythoncom.CoUninitialize()\n                return volume\n            \n        return (text\n            .replace(\"___\",             (\"- *switch_to_vision_mode()*\" if self.vision_mode else \"\"))\n            .replace(\"____\",            (\"- *switch_to_coder_mode()* <- **important. if the question is related to programming (When you use it, you are transferred to another environment more suitable for programming)**\" if self.folder_linked else \"\"))\n            .replace(\"<windows_user>\",  f\"Windows username: {getpass.getuser()}\")\n            .replace(\"<os>\",            f\"OS: {self.metadata['OS']}\")\n            .replace(\"<os_version>\",    f\"OS Version: {self.metadata['OS_version']}\")\n            .replace(\"<machine>\",       f\"Machine: {self.metadata['Machine']}\")\n            .replace(\"<processor>\",     f\"Processor: {self.metadata['Processor']}\")\n            .replace(\"<gpu>\",           f\"GPU: {self.metadata['GPU']}\")\n            .replace(\"<vram>\",          f\"VRAM: {self.metadata['VRAM']}\")\n            .replace(\"<ram_total>\",     f\"Total RAM: {self.metadata['RAM_total']}\")\n            .replace(\"<volume>\",        f\"Audio Volume: {get_volume()}%\")\n            .replace(\"<ip>\",            f\"IP: {self.metadata['IP']}\")\n            .replace(\"<country>\",       f\"Country: {self.metadata['country']}\" if self.metadata.get(\"country\") else \"\")\n            .replace(\"<city>\",          f\"City: {self.metadata['city']}\" if self.metadata.get(\"city\") else \"\")\n            .replace(\"<folder_linked>\", ((\"Folder Linked: \\n (When using tool-call, be sure to mark the full link of the marked folder (ONLY WITH '\\\\' IN PATH))\" + fld) if fld else \"Folder Linked: None\") if self.folder_linked else \"Folder Linked: None\")\n            .replace(\"<skills>\",        f\"Skills: \\n {skl}\" if skl else \"\")\n            .replace(\"- switch_to_tool_call_mode() - switched your environment to classic tool-call mode\", \"\" if self.coder_mode else \"- switch_to_tool_call_mode() - switched your environment to classic tool-call mode \")\n        )\n\n    def load(self, model, vision_mode, max_iteration, folder_linked, coder_mode, gen_type):\n        with open(\"metadata/metadata.json\", \"r\", encoding=\"utf-8\") as f:              self.metadata =         json.load(f)\n        with open(\"instructions/instructions.md\", \"r\", encoding=\"utf-8\") as f:        self.classic_instructions = f.read()\n        with open(\"instructions/vision_instructions.md\", \"r\", encoding=\"utf-8\") as f: self.vision_instructions =  f.read()\n        with open(\"instructions/coder_instructions.md\", \"r\", encoding=\"utf-8\") as f:  self.coder_instructions =   f.read()\n\n        (self.max_iteration, self.history, self.vision_mode, self.coder_mode, self.folder_linked, self.model, self.gen_type) = (\n            max_iteration,        [],          vision_mode,     coder_mode,       folder_linked,     model,      gen_type    \n        ) \n\n        if self.vision_mode:\n            import ocr\n            self.ocr = ocr\n\n        self.classic_instructions, self.coder_instructions, self.vision_instructions = (\n            self.replacements(self.classic_instructions), self.replacements(self.coder_instructions), self.replacements(self.vision_instructions)\n        )\n\ndef load_parameters(model):\n    try:\n        with open(\"metadata/load_data.json\",\"r\",encoding=\"utf-8\") as f:\n            data= json.load(f)\n    except FileNotFoundError:\n        data= {}\n\n    name = os.path.basename(model)\n    cached = data.get(name)\n\n    if cached and cached.get(\"version\") == 2:\n        return cached[\"ctx\"], cached[\"n_threads\"], cached[\"gpu_layers\"]\n\n    try:\n        with open(\"metadata/metadata.json\", \"r\", encoding=\"utf-8\") as f: metadata = json.load(f)\n    except FileNotFoundError: metadata = {}\n\n    def parse_memory(value,unit):\n        try: return float(str(value).replace(unit,\"\").strip())\n        except (TypeError,ValueError): return 0.0\n\n    vram_gb, ram_gb = parse_memory(metadata.get(\"VRAM\", \"0GB\"), \"GB\"), parse_memory(metadata.get(\"RAM_available\", \"0MB\"), \"MB\") / 1024\n    model_size = os.path.getsize(model)\n\n    reader = GGUFReader(model)\n\n    def val(key):\n        field = reader.fields.get(key)\n        if not field:\n            return None\n        value = field.contents()\n        if isinstance(value, (list, tuple)):\n            return value[0] if value else None\n        return value\n\n    arch = str(val(\"general.architecture\"))\n    kv_heads, layers, q_heads, head_dim  = (\n        (val(f\"{arch}.block_count\") or 0), \n        (val(f\"{arch}.attention.head_count\") or 0), (val(f\"{arch}.attention.head_count_kv\") or q_heads), \n        (val(f\"{arch}.attention.key_length\") or val(f\"{arch}.attention.head_dim\"))\n    )   \n    if not head_dim and q_heads:\n        embed_len= val(f\"{arch}.embedding_length\")\n        if embed_len: head_dim = embed_len // q_heads\n\n    if not layers or not kv_heads or not head_dim:\n        error(\"something went wrong...\")\n\n    if vram_gb > 0:\n        available_vram = vram_gb * 1024 ** 3\n        estimated_model_gpu = available_vram * 0.8\n        gpu_layers = min(layers, max(0, int(layers * (estimated_model_gpu / model_size))))\n        if gpu_layers >= layers: gpu_layers = -1\n\n    n_threads = max(1, (os.cpu_count() or 1) -1)\n\n    cpu_model_size = model_size * (1 if gpu_layers == 0 else max(0, (layers-gpu_layers) ) / layers)\n    available_ram = max(0, ram_gb * 1024 ** 3 - cpu_model_size)\n\n    kv_bytes = 2 * layers * kv_heads * head_dim * 2\n    max_ctx = min(int(available_ram / kv_bytes) if kv_bytes else 2048, 131072)\n\n    if max_ctx < 1:\n        ctx = 256\n    else:\n        ctx = 2 ** int(math.log2(max_ctx))\n        ctx = max(256, min(ctx, 131072))\n\n    data[name] = { \n        \"ctx\": ctx,\n        \"n_threads\": n_threads,\n        \"gpu_layers\": gpu_layers\n    }\n\n    with open(\"metadata/load_data.json\", \"w\", encoding=\"utf-8\") as f:\n        json.dump(data, f, indent=4, ensure_ascii=False)\n\n    return ctx, n_threads, gpu_layers\n\nclient = None\n\ndef run(gen_type, model, input_, output, stop_event, loaded):\n    try:\n        if not loaded.is_set():\n            if gen_type == \"local\":\n                from llama_cpp import Llama\n\n                n_ctx, n_threads, n_gpu_layers = load_parameters(model)\n                client = Llama(model_path=model, n_ctx=n_ctx, verbose=False, n_threads=n_threads, use_mmap=True, use_mlock=False, n_gpu_layers=n_gpu_layers)\n            else:\n                from openai import OpenAI\n                client = OpenAI()\n\n            loaded.set()\n\n        while True:\n            try:\n                task = input_.get()\n            except KeyboardInterrupt:\n                break\n\n            if not task:\n                break\n\n            content, rid = task\n            stop_event.clear()\n\n            try:\n                text = \"\"\n                if gen_type == \"local\":\n                    request = client.create_chat_completion(messages=content, stream=True )\n\n                    for chunk in request:\n                        if stop_event.is_set():\n                            text += \"\\n[red][bold]generation iterrupted[/red][/bold]\"\n                            break\n\n                        delta = chunk[\"choices\"][0][\"delta\"]\n\n                        if \"content\" in delta:\n                            text += delta[\"content\"]\n\n                else:\n                    request = client.responses.create(model=model, input=content, stream=True)\n\n                    for event in request:\n                        if stop_event.is_set():\n                            text += \"\\n[red][bold]generation iterrupted[/red][/bold]\"\n                            break\n\n                        if event.type == \"response.output_text.delta\":\n                            text += event.delta\n\n                def extract(t, tag):\n                    pattern = rf\"<{tag}>(.*?)<(?:/{tag}|{tag})>\"\n                    match = re.search(pattern, t, re.DOTALL)\n                    return match.group(1).strip() if match else None\n\n                output.put((\n                    \"result\",\n                    extract(text, \"reasoning\"),\n                    extract(text, \"tool_call\"),\n                    extract(text, \"response\")\n                ))\n\n            except Exception as e:\n                import traceback\n                output.put((\"error\", type(e).__name__, str(e), traceback.format_exc()))\n\n    except Exception:\n        import traceback\n        output.put((\"fatal\", type(Exception).__name__, \"Worker crashed\", traceback.format_exc()))\n\nclass AI:\n    def __init__(self, gen_type, model):\n        self.gen_type = gen_type\n        self.model = model\n        self.input_queue = Queue()\n        self.output_queue = Queue()\n        self.loaded = Event()\n        self.stop_event = Event()\n\n        self.process = Process(\n            target=run,\n            args=(self.gen_type, self.model, self.input_queue, self.output_queue, self.stop_event, self.loaded),\n            daemon=True \n        )\n        self.process.start()\n\n    def generate(self, prompt):\n        self.input_queue.put((prompt, time.time()))\n\n    def is_loaded(self): \n        return self.loaded.is_set()\n    \n    def stop_generation(self):\n        self.stop_event.set()\n        \n    def shutdown(self):\n        self.input_queue.put(None)\n        self.process.join()"}, {"path": "config.py", "name": "config.py", "size": 4420, "text": true, "content": "import json, os, sys\nfrom platform import version, system, machine\nfrom psutil import virtual_memory\nimport GPUtil\nfrom wmi import WMI\nimport requests, json\nimport UI\n\ndef optional_data():\n    with open(\"metadata/metadata.json\", \"r\", encoding=\"utf-8\") as f: \n        metadata = json.load(f) \n\n    if not \"Machine\" in metadata: \n        ram = virtual_memory()\n\n        for cpu in WMI().Win32_Processor():\n            for gpu in GPUtil.getGPUs():\n                metadata[\"GPU\"] = gpu.name\n                try: metadata[\"VRAM\"] = str(round(gpu.memoryTotal / 1024)) + \"GB\"\n                except ZeroDivisionError: metadata[\"VRAM\"] = None\n            \n            metadata[\"OS\"]            = system()\n            metadata[\"OS_version\"]    = version()\n            metadata[\"Machine\"]       = machine()\n            metadata[\"Processor\"]     = cpu.Name\n            metadata[\"RAM_total\"]     = f\"{round(ram.total / (1024**3), 2)*1000}MB\"\n            metadata[\"RAM_available\"] = f\"{round(ram.available / (1024**3), 2)*1000}MB\"\n\n        ip = requests.get(\"https://api.ipify.org\").text\n        metadata[\"IP\"] = ip\n\n        ip_data = requests.get(f\"https://ipapi.co/{ip}/json/\").json()\n        if \"country_name\" in ip_data and \"city\" in ip_data:\n            metadata[\"country\"] = ip_data[\"country_name\"]\n            metadata[\"city\"] = ip_data[\"city\"]\n        \n        with open(\"metadata/metadata.json\", \"w\", encoding=\"utf-8\") as f:\n            json.dump(metadata, f, ensure_ascii=False, indent=4)\n\ndef load_data():\n    try:\n        with open(\"metadata/metadata.json\", \"r\", encoding=\"utf-8\") as f:\n            metadata = json.load(f)\n    except (FileNotFoundError, json.JSONDecodeError):\n        while True:\n            ui = UI\n            gen_type = ui.inputr(\"enter generate type ('local' or 'api') << \", ui.c1)\n\n            if gen_type == \"/exit\": \n                ui.clear()\n                sys.exit()\n\n            if gen_type == \"local\": \n                model = ui.inputr(\"enter model path (.gguf) << \")\n                break \n            else: \n                if not os.environ[\"OPENAI_API_KEY\"].strip(): \n                    os.system(f'setx OPENAI_API_KEY \"{ui.inputr(\"Enter Your OpenAI API-key << \")}\"', ui.c1)\n                    os.system('cls') \n                    print(\"[red]NEED TO RESTART TERMINAL[/red]\")\n                    sys.exit()\n                model = \"gpt-5.6-luna\"\n                break \n\n        metadata = {\n            \"model\": model,\n            \"vision_mode\": False,\n            \"max_iteration\": 10,\n            \"folder_linked\": \"None\",\n            \"coder_mode\": False, \n            \"gen_type\": gen_type,\n            \"tg_bot_api\": None\n        }\n\n        try:\n            os.mkdir(\"metadata\")\n        except FileExistsError: \n            pass \n        \n        with open(\"metadata/metadata.json\", \"w\", encoding=\"utf-8\") as f:\n            json.dump(metadata, f, ensure_ascii=False, indent=4)\n            \n    optional_data()\n    return (\n        metadata.get(\"model\"),\n        metadata.get(\"vision_mode\"),\n        metadata.get(\"max_iteration\"),\n        metadata.get(\"folder_linked\") if os.path.exists(str(metadata.get(\"folder_linked\"))) else None,\n        metadata.get(\"coder_mode\"),\n        metadata.get(\"gen_type\"),\n        metadata.get(\"tg_bot_api\")\n    )\n\ndef save(model=None, vision_mode=None, max_iteration=None, folder_linked=None, coder_mode=None, gen_type=None, tg_bot_api=None):\n    try:\n        with open(\"metadata/metadata.json\", \"r\", encoding=\"utf-8\") as f:\n            metadata = json.load(f)\n    except (FileNotFoundError, json.JSONDecodeError):\n        metadata = {}\n\n    if model:                 metadata[\"model\"]              =              model\n    if vision_mode != None:   metadata[\"vision_mode\"]        =        vision_mode\n    if max_iteration != None: metadata[\"max_iteration\"]      =      max_iteration\n    if coder_mode != None:    metadata[\"coder_mode\"]         =         coder_mode\n    if gen_type:              metadata[\"gen_type\"]           =           gen_type\n    if tg_bot_api:            metadata[\"tg_bot_api\"]         =         tg_bot_api\n    metadata[\"folder_linked\"]                                =      folder_linked\n\n    with open(\"metadata/metadata.json\", \"w\", encoding=\"utf-8\") as f:\n        json.dump(metadata, f, ensure_ascii=False, indent=4)"}, {"path": "folder_index.py", "name": "folder_index.py", "size": 4371, "text": true, "content": "import os, re, json, parsing\nfrom folder_linked import FolderLinked\n\nclass IndexParsing: \n    @staticmethod\n    def index(path, description): \n        return {path: description}\n\nclass Indexing: \n    def __init__(self, folder_path):\n        self.folder_path = folder_path\n\n        with open(\"instructions/index_instructions.md\", \"r\", encoding=\"utf-8\") as f: \n            self.instructions = f.read()\n        try:\n            with open(\"metadata/metadata.json\", \"r\", encoding=\"utf-8\") as f: \n                self.metadata = json.load(f) \n        except FileNotFoundError:\n            self.metadata = {}\n\n    def extract(self, text):\n        text = re.sub(r\"<reasoning>.*?<\/reasoning>\", \"\", text, flags=re.DOTALL)\n        text = text.replace(\"<response>\", \"\").replace(\"<\/response>\", \"\").strip()\n\n        json_match = re.search(r\"```(?:json)?\\s*(.*?)\\s*```\", text, flags=re.DOTALL)\n        if json_match: text = json_match.group(1)\n\n        text = re.sub(r'\\}\\s*\\{', '}, {', text)\n        \n        text = text.strip()\n        if text.startswith(\"{\") and text.endswith(\"}\"):\n            text = f\"[{text}]\"\n            \n        return text\n\n    def tree(self, index_dict, current_folder, depth=0, max_depth=5, max_files=20):\n        if depth > max_depth:\n            return f\"{'    ' * depth}|-- ...\\n\"\n\n        result = []\n        try:\n            items = sorted(os.listdir(current_folder))\n        except Exception as e:\n            return f\"{'    ' * depth}|-- [ERROR: {e}]\\n\"\n\n        for i, name in enumerate(items):\n            if i >= max_files:\n                result.append(f\"{'    ' * depth}|-- ... ({len(items) - max_files} more)\")\n                break\n\n            full_path = os.path.join(current_folder, name)\n            rel_path = os.path.normpath(os.path.relpath(full_path, self.folder_path))\n            prefix = \"    \" * depth\n\n            if os.path.isfile(full_path):\n                result.append(f\"{prefix}|-- {name}\")\n                result.append(f\"{prefix}    |-- DESCRIPTION\")\n                desc = index_dict.get(rel_path) or index_dict.get(name) or index_dict.get(os.path.normpath(full_path))\n                \n                if desc:\n                    for line in str(desc).split('\\n'):\n                        result.append(f\"{prefix}        | {line}\")\n                else:\n                    result.append(f\"{prefix}        | No description\")\n            else:\n                result.append(f\"{prefix}|-- {name}/\")\n                nested_tree = self.tree(index_dict, full_path, depth + 1, max_depth, max_files)\n                result.extend(nested_tree.splitlines())\n                \n        return \"\\n\".join(result)\n\n    def generate(self, instructions):\n        text = \"\"\n        if self.metadata[\"gen_type\"] == \"api\": \n            from openai import OpenAI\n            text = OpenAI().responses.create(model=\"gpt-5.6-luna\", input=instructions).output_text \n        else:\n            from llama_cpp import Llama\n            from AI import load_parameters\n            ctx, threads, gpu_layers = load_parameters(self.metadata.get(\"model\"))\n            AI = Llama(model_path=self.metadata.get(\"model\"), n_ctx=ctx, n_threads=threads, n_gpu_layers=gpu_layers, verbose=False)\n            text = AI.create_chat_completion(messages=[{\"role\": \"user\", \"content\": instructions}])\n            text = text[\"choices\"][0][\"message\"][\"content\"]\n        return text\n    \n    def run(self):\n        FolderLinked(self.folder_path, max_depth=50, max_files=100)\n\n        path_tree = \"\"\n        with open(\"metadata/folder_linked_data.txt\", \"r\", encoding=\"utf-8\") as f:\n            path_tree = f.read()\n\n        instructions = (self.instructions\n            .replace(\"<path_tree>\", path_tree)\n        )\n\n        system = parsing.run(IndexParsing(), self.extract(self.generate(instructions)))\n        \n        normalized_index = {}\n        if isinstance(system, list):\n            for item in system:\n                if isinstance(item, dict):\n                    for k, v in item.items():\n                        normalized_index[os.path.normpath(k)] = v\n\n        tree = self.tree(normalized_index, self.folder_path)\n\n        with open(\"metadata/folder_linked_data.txt\", \"w\", encoding=\"utf-8\") as f:\n            f.write(self.folder_path + \"\\n\" + tree)"}, {"path": "folder_linked.py", "name": "folder_linked.py", "size": 2013, "text": true, "content": "import os\n\nclass FolderLinked:\n    def return_path(self, path=\".\", depth=0, max_depth=5, max_files=20):\n        tree = os.listdir(path)\n\n        full_text = \"\"\n        count = 0\n        elements = []\n\n        for i, file in enumerate(tree):\n            if i >= max_files:\n                full_text += f\"|-- ... ({len(tree) - max_files} more)\\n\"\n                break\n\n            full_path = os.path.join(path, file)\n\n            if os.path.isfile(full_path):\n                full_text += f\"|-- {file}\\n\"\n                elements.append(file)\n\n            else:\n                full_text += f\"|-- {file}/\\n\"\n\n                if depth >= max_depth:\n                    full_text += \"    |-- ...\\n\"\n                    continue\n\n                nested, count_, elements_ = self.return_path(full_path, depth + 1, max_depth, max_files)\n                count += count_\n\n                for element in elements_:\n                    elements.append(f\"{file}/{element}\")\n\n                for line in nested.splitlines():\n                    full_text += f\"    {line}\\n\"\n\n            count += 1\n\n        return full_text, count, elements\n\n    def __init__(self, path, depth=0, max_depth=5, max_files=20): \n        text, elements_count, elements = self.return_path(path, depth=depth, max_depth=max_depth, max_files=max_files)\n        self.return_text = path + \"\\n\" + text\n\n        if elements_count <= max_files:\n            for file in elements: \n                self.return_text += self.read_file(f\"{path}/{file}\")\n\n        with open(\"metadata/folder_linked_data.txt\", \"w\", encoding=\"utf-8\") as f: \n            f.write(self.return_text) \n\n\n    def read_file(self, path):\n        with open(path, \"r\", encoding=\"utf-8\") as f: \n            try:\n                file = f.read().strip()\n            except UnicodeDecodeError: return f\"'''{path}''' \\nUnicodeDecodeError while trying to open file\"\n            return f\"'''{path}''' \\n{file if file else \"[Empty File]\"}\""}, {"path": "instructions/coder_instructions.md", "name": "coder_instructions.md", "size": 2567, "text": true, "content": "### Your model was been transfered to AI-agent environment. (mode=\"CODER\")\nYou are an intelligent AI agent for controlling a computer. \nEverything you write will be parsed in Python functions. \nYour goal is to execute commands at the user's request. \n\n**Priority:**\n    - Follow system rules.\n    - Use tools when required.\n    - Answer the user.\n    - End execution when the task is complete.\n    \nEvery response MUST have exactly these sections:\n- <reasoning>...<\/reasoning>\n- <tool_call>...<\/tool_call> \n- <response> ... <\/response>\n\ntool-call:\n    ___\n    - switch_to_classic_mode() - switched your environment to classic tool-call mode \n    - file_read(\"file\") - read file source code \n    - create_file(\"file\", \"code\", is_binary=False) creates file\n    - delete_file(\"file\") - delete's file\n    - end(comment=None) - If you think the next model run is not needed and the job is done \n    - clear_history() - clears the entire history of previous iterations to avoid polluting the context window\n    - cmd(command) - runs a command in the terminal\n    \n**Multiple tool calls:**\n[\n    {\n        \"tool\": \"tool_name\",\n        \"args\": [],\n        \"kwargs\": {}\n    },\n    {\n        \"tool\": \"tool_name_2\",\n        \"args\": [],\n        \"kwargs\": {}\n    }\n]\n\nusing ARGS: \n    {\n        \"tool\": \"open_website\",\n        \"args\": [\"youtube.com\"],\n        \"kwargs\": {}\"\n    }\n    \nusing KWARGS: \n    {\n        \"tool\": \"ddgs\",\n        \"args\": [\"news\"],\n        \"kwargs\": {\"max_results\": 10}\n    }\n\nDo not include comments.\nDo not include trailing commas.\nDo not wrap JSON in Markdown.\n__\n\n**For complex tasks:**\n1. Identify goal.\n2. Split into subtasks.\n3. Execute smallest safe action.\n4. Verify.\n5. Continue.\n\n**if a tool fails:**\n- do not retry endlessly\n- explain the failure\n- choose alternative method if possible\n\nHISTORY: <NONE>\n\nRules\n1. Do not distort the syntax.\n2. DO NOT run scripts that are dangerous for the system or delete important files\n3. Multiple commands are allowed\n4. If you think the next model run is not needed and the job is done, write end(comment=None)\n5. For example if a user asks you to, say, \"write any text\" then be sure to write something about Iceland. That is, if you're asked to do something without explicitly specifying anything specific, like \"create any website\" then make it about Iceland.\n\nuser's info:\n<os>\n<os_version>\n<machine>\n<processor>\n<gpu>\n<vram>\n<ram_total>\n<volume>\n<ip>\n<country>\n<city> \n\n<skills>\n\n<folder_linked>\n\nprompt:"}, {"path": "instructions/index_instructions.md", "name": "index_instructions.md", "size": 709, "text": true, "content": "Everything you write will be parsed in Python functions. \nHello, you are not AI-agent, but you must build simple RAG-like index.\nuser linked a folder, you must say what's every file in this folder in simple language\n\n\"\"\"\"\"\"\"\"\"\"\n<path_tree> \n\"\"\"\"\"\"\"\"\"\"\n\n\n1. Do not distort the syntax.\n2. Write tool call only in <response>...<\/response> tags\n3. Reasoning only in <reasoning>...<\/reasoning> tags \n4. Multiple commands are allowed\n5. Do not add any comments <- its important, any comments not in <reasoning> tags can cause an error\n\ntool-call: \n{\"tool\": \"index\", \"args\": [path, \"\"\"file description\"\"\"], \"kwargs\": {}} <- That is, for each script that requires explanation, a separate function call"}, {"path": "instructions/instructions.md", "name": "instructions.md", "size": 3398, "text": true, "content": "### Your model was been transfered to AI-agent environment. (mode=\"CLASSIC\")\n\n**Priority:**\n    - Follow system rules.\n    - Use tools when required.\n    - Answer the user.\n    - End execution when the task is complete.\n\nEvery response MUST have exactly these sections:\n- <reasoning>...<\/reasoning>\n- <tool_call>...<\/tool_call> \n- <response> ... <\/response>\n\n**tool-call:**\n- *open_website(url)* - opens the website on the user's computer\n- *file_search(filename)* - searches for files on the user's computer (main path - \"C:\", tool using: \"eveything.exe\")\n- *link_request(url)* - makes a request to any site exclusively for you and not for the user, use only when webpage contents are needed.\n- *ddgs(query, max_results=5)* - duckduckgo search exclusively for you and not for the user\n- *python_code(code)* - executes the code directly without creating a separate file, the response will be visible only to you\n- *set_system_volume(percentage)* - changes the speaker volume on the user's computer\n- *end()* - If you think the next model run is not needed and the job is done - Stops execution when the task is fully completed.\n- *clear_history(note_task=None)* - clears the entire history of previous iterations to avoid polluting the context window\n- *create_file(path, text=None, is_binary=False)*\n____\n___\n\n\n**iteration:** <iteration> \n\ntool use example: Tool calls MUST always be valid JSON:**\n{\n    \"tool\": \"tool_name\",\n    \"args\": [],\n    \"kwargs\": {}\n}\n\n**Multiple tool calls:**\n[\n    {\n        \"tool\": \"tool_name\",\n        \"args\": [],\n        \"kwargs\": {}\n    },\n    {\n        \"tool\": \"tool_name_2\",\n        \"args\": [],\n        \"kwargs\": {}\n    }\n]\n\nusing ARGS: \n{\n    \"tool\": \"open_website\",\n    \"args\": [\"youtube.com\"],\n    \"kwargs\": {}\"\n}\n    \nusing KWARGS: \n{\n    \"tool\": \"ddgs\",\n    \"args\": [\"news\"],\n    \"kwargs\": {\"max_results\": 10}\n}\n\nDo not include comments.\nDo not include trailing commas.\nDo not wrap JSON in Markdown.\n__\n\n**For complex tasks:**\n1. Identify goal.\n2. Split into subtasks.\n3. Execute smallest safe action.\n4. Verify.\n5. Continue.\n\n**if a tool fails:**\n- do not retry endlessly\n- explain the failure\n- choose alternative method if possible\n\nNo other text is allowed.\n\n**Rules**\n- 1. Do not distort the syntax.\n- 2. DO NOT run scripts that are dangerous for the system or delete important files\n- 6. Multiple commands are allowed (but use tags only once for the entire answer)\n- 7. If there were previous iterations (you can see this in the history), then if the user asked a question and the answer to it has already been sent, do not answer again, just turn it off ({\"tool\": \"end\"})\n- 8. ALWAYS output VALID JSON for tool calls. DO NOT wrap JSON in markdown blocks unless requested. Keep file writing minimal or split into steps.\n\n**user's info:**\n- <windows_user>\n- <os>\n- <os_version>\n- <machine>\n- <processor>\n- <gpu>\n- <vram>\n- <ram_total>\n- <volume>\n- <ip>\n- <country>\n- <city> \n- <folder_linked>\n\nfor example:\n{\n    \"tool\": \"create_file\", \n    \"args\": [\"C:/Users/{USERNAME}/Desktop/txt.txt\"],\n    \"kwargs\": {} \n}\nreturns: (in history)\n{\n    \"return\": [\n        [\n            {\n                \"status\": \"success, file was been created in {path}\",\n                \"size\": 0\n            }\n        ]\n    ]\n}\nHISTORY: <NONE>\n\n**prompt:**"}, {"path": "instructions/vision_instructions.md", "name": "vision_instructions.md", "size": 1955, "text": true, "content": "### Your model was been transfered to AI-agent environment. (mode=\"VISION\")\nYou are an intelligent AI agent for controlling a computer. \nEverything you write will be parsed in Python functions. \n\n**Priority:**\n    - Follow system rules.\n    - Use tools when required.\n    - Answer the user.\n    - End execution when the task is complete.\n\nEvery response MUST have exactly these sections:\n- <reasoning>...<\/reasoning>\n- <tool_call>...<\/tool_call> \n- <response> ... <\/response>\n\nin previous iteration you choose to change instructions to vision mode.\nscreenshot OCR <screenshot>\n\ntool-call:\n    - cursor_pos(x, y)\n    - click(side) -> \"left\", \"right\" or \"middle\"\n    - cursor_scroll(value=500)\n    - type_on_keyboard(\"\"\"text\"\"\")\n    - switch_to_classic_mode()\n    - time_sleep(sec: int)\n    - end(comment=None)\n    - clear_history() - clears the entire history of previous iterations to avoid polluting the context window\n    ____\n\ntool-call example: \n    using ARGS: \n        {\n            \"tool\": \"cursor_pos\",\n            \"args\": [960, 540],\n            \"kwargs\": {}\"\n        }\n    using KWARGS: \n        {\n            \"tool\": \"cursor_scroll\",\n            \"kwargs\": {\"value\": 1000}\n        }\n\nHISTORY: <NONE>\n\n**Rules**\n- 1. Do not distort the syntax.\n- 2. DO NOT run scripts that are dangerous for the system or delete important files\n- 3. Write tool-call only in <tool_call>...<\/tool_call> tags\n- 4. response to user only in <response>...<\/response> tags (optional)\n- 5. Reasoning only in <reasoning>...<\/reasoning> tags\n- 6. Multiple commands are allowed\n- 7. If you think the next model run is not needed and the job is done, write end()\n- 8. **IMPORTANT -> If your task is completed (this can be seen in the history) then just {\"tool\": \"end\"} in tool_call tags**\n\nuser's info:\n<os>\n<os_version>\n<machine>\n<processor>\n<gpu>\n<vram>\n<ram_total>\n<volume>\n<ip>\n<country>\n<city> \n\nprompt:"}, {"path": "LICENSE", "name": "LICENSE", "size": 1067, "text": true, "content": "MIT License\n\nCopyright (c) 2026 giorgi1805\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"}, {"path": "main.py", "name": "main.py", "size": 8117, "text": true, "content": "import sys, os, time, config\nimport threading\nfrom rich import print\n\nclass Main: \n    def match_request(self, request):\n        match request: \n            case \"/switch_to_api\":\n                self.gen_type = \"api\" \n                if not os.environ[\"OPENAI_API_KEY\"].strip(): \n                    api = self.ui.inputr((\"Enter Your OpenAI API-key << \", self.ui.c1))\n                    os.system(f'setx OPENAI_API_KEY \"{api}\"')\n                    os.system('cls') \n                    print(\"[red]NEED TO RESTART TERMINAL[/red]\")\n                    sys.exit()\n                yield \"/reset\"\n            \n            case \"/switch_to_local\": \n                self.gen_type = \"local\" \n                self.model = self.ui.inputr(\"Enter Model Path (.gguf) << \")\n                yield \"/reset\"\n\n            case \"/model\": \n                not_exists = False\n                while True: \n                    model = None\n                    if not_exists: print(\"[red]this model didn't exists[/red]\")\n                    model = self.ui.inputr((\"Choose Your OpenAI Model << \" if self.gen_type == \"api\" else \"Enter Model Path (.gguf) << \"), self.ui.c1)\n                    if model != \"/exit\": \n                        if self.gen_type == \"local\": \n                            if os.path.exists(model):\n                                self.model = model \n                                break\n                            else: not_exists = True\n                        else: \n                            self.model = model \n                        self.load_ai()\n                        break\n                    else:\n                        print()\n                        yield \"/reset\"\n                        return\n                yield \"/reset\"\n\n            case \"/max_iteration\": \n                int_error = False \n                zero_error = False \n                save = True\n                while True: \n                    self.ui.clear() \n\n                    if int_error:  print(\"[red]integer value only[/red]\")\n                    if zero_error: print(\"[red]minimum 1 iteration[/red]\")\n                    \n                    i = self.ui.inputr(\"enter max iteration: \", self.ui.c1)\n                    if i == \"/exit\":\n                        save = False\n                        break \n                    try: \n                        i = int(i) \n                    except:\n                        int_error = True \n                        continue \n\n                    if i == 0:\n                        zero_error = True \n                        continue \n\n                    if save: self.max_iteration = i \n                    yield \"/reset\"\n                    return\n                yield \"/reset\"\n                \n            case \"/exit\":\n                self.config_save()\n                os.system('cls')\n                sys.exit()\n\n            case \"/vision_mode\": \n                self.vision_mode = not self.vision_mode \n                yield \"/reset\"\n            \n            case \"/coder_mode\":\n                if not self.folder_linked and not self.coder_mode: \n                    link, index = self.ui.folder_linked()\n                    \n                    if index:  folder_index.Indexing().run(link) \n                    elif link: folder_linked.FolderLinked(link)\n\n                    self.folder_linked = link\n\n                self.coder_mode = not self.coder_mode\n                yield \"/reset\"\n\n            case \"/link_folder\": \n                link, index = self.ui.folder_linked()\n                \n                if   index: folder_index.Indexing(link).run() \n                elif link:  folder_linked.FolderLinked(link)\n                else: os.remove(\"metadata/folder_linked_data.txt\")\n                self.folder_linked = link\n                yield \"/reset\"\n\n            case \"/my_skill\": \n                with open(\"notes/recommended_skills.txt\", \"r\", encoding=\"utf-8\") as f: \n                    self.ui.notes(f.read(), \"SKILL\")\n                return \n            \n            case \"/author\": \n                self.ui.notes(\"Made by [bold]giorgi1805[/bold] with ❤️ for [bold][rgb(36,150,255)]Ic[/rgb(36,150,255)]e[rgb(255,30,0)]l[/rgb(255,30,0)]a[rgb(36,150,255)]nd[/rgb(36,150,255)][/bold]\", title=\"author\")\n                return\n\n            case \"/commands\": \n                txt = f\"\"\"[{self.ui.c1}][bold]\n                \\nCommands:\\n {\"/switch_to_local\" if self.gen_type == \"api\" else \"/switch_to_api\"}\\n /link_folder\\n /max_iteration\\n /model\\n /vision_mode\\n /coder_mode\\n /settings\\n /skills\\n /telegram\\n /reset\n                [/bold][{self.ui.c1}]\"\"\"\n                print(txt)\n\n            case \"/skills\": \n                link = self.ui.skills() \n                if link: skills.skills_save(link)\n                else:\n                    try: os.remove(\"metadata/skills.txt\")\n                    except FileNotFoundError: pass\n                self.skill_path = link \n                yield \"/reset\"\n\n            case \"/reset\": yield \"/reset\"\n\n            case \"/telegram\": \n                api, choose = self.ui.telegram() \n                if choose == \"/run\": \n                    self.tg_api_bot = api\n                    threading.Thread(target=lambda: telegram.run_bot(api, self.match_request, self.model), daemon=True).start()\n                    yield \"running: true\", \"message\"\n                elif choose == \"/exit\": \n                    return \n                \n            case _:  \n                for text in self.AI.run(request):\n                    yield text\n\n    def run(self): \n        while True:\n            reset = False\n            self.ui.main(self.model, self.folder_linked, self.vision_mode, self.coder_mode, self.gen_type) \n            self.load_ai()\n            while True:\n                request = self.ui.inputr(\"<< \", self.ui.c1)\n                \n                if not request: \n                    continue\n\n                resp = self.match_request(request)\n                \n                wr = self.ui.Response(self.max_iteration)\n                for res in resp: \n                    if res:\n                        if res == \"/reset\": \n                            reset = True \n                            break \n                        try: \n                            rs, typ = res \n                            wr.write(rs, typ)\n                        except KeyboardInterrupt: \n                            self.AI.AI.stop_generation()\n                if reset: break \n\n                while wr.writing: \n                    try: time.sleep(0.01)\n                    except KeyboardInterrupt: \n                        wr.stop_event.set()\n                        \n            self.config_save()\n\n    def load_ai(self):\n        self.AI = AI.Start()\n        self.AI.load(self.model, self.vision_mode, self.max_iteration, self.folder_linked, self.coder_mode, self.gen_type)\n        \n    def config_save(self): \n        config.save(self.model, self.vision_mode, self.max_iteration, self.folder_linked, self.coder_mode, self.gen_type, self.tg_api_bot)\n\n    def config_load(self): \n        global skills, telegram, folder_linked, folder_index, AI\n        self.model, self.vision_mode, self.max_iteration, self.folder_linked, self.coder_mode, self.gen_type, self.tg_api_bot = config.load_data() \n\n        if self.gen_type == \"local\": \n            if not os.path.exists(self.model): \n                \n                model = self.ui.inputr(\"Enter Model Path (.gguf) << \", self.ui.c1)\n                if model != \"/exit\": \n                    self.model = model \n                else:\n                    sys.exit() \n\n                config.save()\n        import skills, telegram\n        import folder_index, folder_linked\n        import AI \n\n\n    def __init__(self):\n        import UI\n        self.ui = UI\n        self.config_load() \n        self.load_ai()\nif __name__ == \"__main__\": \n    Main().run()"}, {"path": "ocr.py", "name": "ocr.py", "size": 742, "text": true, "content": "import easyocr, pyautogui\nimport numpy as np\nfrom PIL import Image\n\n# the OCR and vision was created for show, in reality, the computer use on transformer models is complete shit, expensive and slow.\n\ndef return_json(): \n    pyautogui.screenshot().save(\"screen.png\")\n    img = np.array(Image.open(\"screen.png\"))\n\n    reader = easyocr.Reader(['en'], gpu=True)\n    result = reader.readtext(img)\n\n    txt = []\n\n    for bbox, text, confidence in result:\n        if confidence > 0.7 and len(text.strip()) > 1:\n            bbox = np.array(bbox).tolist()\n\n            txt.append({\n                \"txt\": text,\n                \"conf\": round(float(confidence), 2),\n                \"bbox\": bbox\n            })\n\n    return txt\n"}, {"path": "parsing.py", "name": "parsing.py", "size": 1262, "text": true, "content": "import json\n\ndef run(object, script):\n    try:\n        data = json.loads(script)\n    except Exception as e:\n        return f\"Error parsing JSON: {e}\"\n\n    results = []\n\n    if isinstance(data, dict):\n        data = [data]\n\n    for call in data:\n        if not isinstance(call, dict):\n            results.append(\"Invalid command format.\")\n            continue\n\n        tool = call.get(\"tool\")\n\n        if not tool:\n            results.append(\"Missing tool name.\")\n            continue\n\n        args = call.get(\"args\", [])\n        kwargs = call.get(\"kwargs\", {})\n\n        if hasattr(object, tool):\n            try:\n                func = getattr(object, tool)\n                result = func(*args, **kwargs)\n                results.append(result)\n            except Exception as e:\n                results.append(f\"Error executing {tool}: {e}\")\n        else:\n            results.append(f\"Function {tool} not found.\")\n\n    return results if results else None\n\nif __name__ == \"__main__\": \n    from tool_call.classic import Classic \n\n    print(run(Classic, \"[{\\\"tool\\\": \\\"open_website\\\", \\\"args\\\": [\\\"https://youtube.com\\\"], \\\"kwargs\\\": {}}, {\\\"tool\\\": \\\"open_website\\\",\\\"args\\\": [\\\"https://youtube.com\\\"], \\\"kwargs\\\": {}}]\"))"}, {"path": "skills.py", "name": "skills.py", "size": 639, "text": true, "content": "import os \n\ndef return_files(path): \n    result = \"\" \n\n    for file in os.listdir(path): \n        result += path + \"\\\\\" + file + \":\" + \"\\n\"\n        with open(f\"{path}\\\\{file}\", \"r\", encoding=\"utf-8\") as f: \n            _file = f.read().split(\"\\n\")\n            for line in _file: \n                result += (\" \" * 4) + line + \"\\n\"\n            \n    return result\n\ndef skills_save(path): \n    with open(\"metadata/skills.txt\", \"w\", encoding=\"utf-8\") as f: \n        f.write(\"The user marked a folder with skills that might be useful to you. \\n\" + return_files(path))\n\nif __name__ == \"__main__\": \n    skills_save(input(\"<< \"))"}, {"path": "telegram.py", "name": "telegram.py", "size": 753, "text": true, "content": "import asyncio\nfrom aiogram import Bot, Dispatcher\nfrom aiogram.types import Message\nfrom aiogram.filters import Command\n\ndef run_bot(api_key, match_request_func, model):\n    bot = Bot(api_key)\n    dp = Dispatcher()\n\n    @dp.message(Command(\"start\"))\n    async def start(message: Message):\n        await message.answer(f\"модель: {model}\")\n\n    @dp.message()\n    async def echo(message: Message):\n        for response in match_request_func(message.text):\n            response, state = response\n            await message.answer(response)\n\n    async def main():\n        await dp.start_polling(bot)\n\n    try:\n        asyncio.run(main())\n    except KeyboardInterrupt: \n        return \"[red]The bot has stopped working.[/red]\"\n"}, {"path": "tool_call/classic.py", "name": "classic.py", "size": 2918, "text": true, "content": "import contextlib, io\nimport webbrowser \nfrom ddgs import DDGS\nimport subprocess, os\nfrom tool_call.tools import file_search, read_file, link_requests\nfrom pycaw.pycaw import AudioUtilities\n\nclass Classic: \n    @staticmethod\n    def open_website(url): \n        webbrowser.open(url)\n        return {\"status\": f\"success opening site by url: {url}\"}\n    \n    @staticmethod\n    def link_request(url):\n        return link_requests.run(url)\n\n    @staticmethod\n    def file_read(file): \n        return read_file.run(file) \n    \n    @staticmethod\n    def ddgs(query, max_results=5):\n        text = \"\"\n        with DDGS() as ddgs:\n            results = ddgs.text(query, max_results=max_results)\n            for r in results:\n                text += f\" <TITLE> {r['title']} <\/TITLE>\\n\"\n                text += f\" <LINK> {r['href']} <\/LINK>\\n\"\n                text += f\" <BODY> {r['body']} <\/BODY>\\n\"\n                text += \"\\n\"\n        return {\n            \"status\": \"success\", \n            \"result\": text.strip()\n        }\n    \n    @staticmethod\n    def python_code(code):\n        output = io.StringIO()\n\n        try:\n            with contextlib.redirect_stdout(output):\n                local_vars = {}\n                exec(code, {}, local_vars)\n            return output.getvalue()\n\n        except Exception as e:\n            return f\"Error executing code: {e}\"\n    \n    @staticmethod\n    def set_system_volume(percentage):\n        try:\n            speakers = AudioUtilities.GetSpeakers()\n            volume = speakers.EndpointVolume\n            volume.SetMasterVolumeLevelScalar((float(percentage) / 100.0), None)\n        except Exception as e:\n            return f\"Error setting volume: {e}\"\n        return f\"success, volume: {percentage}\"\n\n    @staticmethod\n    def create_file(path, text=None, is_binary=False): \n        with open(path, \"wb\" if is_binary else \"w\", encoding=None if is_binary else \"utf-8\") as f: \n            f.write(text)\n        return {\n            \"status\": f\"success, file created in {path}\",\n            \"size\": os.path.getsize(path) \n        }, \n\n    @staticmethod\n    def file_search(query, limit=15):\n        result = file_search.Search().run(query, limit=limit)\n        return {\n            \"status\": \"success\", \n            \"amount\": len(result),\n            \"result\": result\n        }\n\n    @staticmethod\n    def cmd(command): \n        result = subprocess.run(command, shell=True, capture_output=True)\n        if result.stdout:\n            return result.stdout.decode(\"utf-8\")\n        return \"success\"\n\n    @staticmethod\n    def end(): \n        return \"end\"\n\n    @staticmethod\n    def clear_history(note=\"\"):  return \"__clear history__\", note\n    \n    @staticmethod\n    def switch_to_vision_mode(): return \"__vision mode__\"\n\n    @staticmethod\n    def switch_to_coder_mode():  return \"__coder mode__\""}, {"path": "tool_call/coder.py", "name": "coder.py", "size": 2148, "text": true, "content": "import contextlib\nimport io\nimport subprocess\nimport os\nfrom tool_call.tools import read_file \n\nclass CoderMode: \n    @staticmethod\n    def python_code(code):\n        output = io.StringIO()\n\n        try:\n            with contextlib.redirect_stdout(output):\n                local_vars = {}\n                exec(code, {}, local_vars)\n\n            return {\"result\": output.getvalue()}\n\n        except Exception as e:\n            return f\"Error executing code: {e}\"\n\n    @staticmethod\n    def file_read(file): \n        return read_file.run(file)\n\n    @staticmethod\n    def create_file(path, code, is_binary=False):\n        with open(path, \"wb\" if is_binary else \"w\", encoding=None if is_binary else \"utf-8\") as f: \n            f.write(code)\n        return {\n            \"status\": f\"success, file created in {path}\",\n            \"size\": os.path.getsize(path) \n        }, \n\n    @staticmethod\n    def edit_code(file, start_line, end_line, text):\n        with open(file, \"r\", encoding=\"utf-8\") as f:\n            lines = f.read().split(\"\\n\")\n\n        while len(lines) <= end_line:\n            lines.append(\"\")\n\n        edit_lines = text.split(\"\\n\")\n        while len(edit_lines) <= end_line - start_line:\n            edit_lines.append(\"\")\n\n        count = 0\n        for line in range(start_line, end_line):\n            lines[line] = edit_lines[count]\n            count += 1\n\n        with open(file, \"w\", encoding=\"utf-8\") as f:\n            f.write(\"\\n\".join(lines))\n        return \"success\"\n\n    @staticmethod\n    def delete_file(file):\n        os.remove(file)\n        return f\"success, removed {file}\"\n    \n    @staticmethod\n    def cmd(command): \n        result = subprocess.run(command, shell=True, capture_output=True)\n        if result.stdout:\n            return result.stdout.decode(\"utf-8\")\n        \n    @staticmethod\n    def end(comment=None): \n        return \"end\", comment if comment else None\n    \n    @staticmethod\n    def switch_to_classic_mode(): \n        return \"__classic mode__\"\n\n    @staticmethod\n    def switch_to_vision_mode(): \n        return \"__vision mode__\""}, {"path": "tool_call/tools/everything/Everything.exe", "name": "Everything.exe", "size": 2951336, "text": false}, {"path": "tool_call/tools/everything/Everything64.dll", "name": "Everything64.dll", "size": 90280, "text": false}, {"path": "tool_call/tools/file_search.py", "name": "file_search.py", "size": 1837, "text": true, "content": "import ctypes\nimport sys, os\nimport subprocess\nimport psutil\n\ndef run_everything(path_to_exe):\n    for proc in psutil.process_iter(['name']):\n        if proc.info['name'] == 'Everything.exe':\n            return \n        \n    subprocess.Popen([path_to_exe, \"-startup\"], creationflags=subprocess.CREATE_NO_WINDOW)\n\nclass Search:\n    def run(self, query, limit=5):\n        self.everything_dll.Everything_SetSearchW(query)\n        self.everything_dll.Everything_SetMax(limit)\n        self.everything_dll.Everything_QueryW(True)\n        num_results = self.everything_dll.Everything_GetNumResults()\n        \n        results = []\n        buffer = ctypes.create_unicode_buffer(260)\n        \n        for i in range(num_results):\n            self.everything_dll.Everything_GetResultFullPathNameW(i, buffer, 260)\n            results.append(buffer.value)\n            \n        return results\n    \n    def __init__(self):\n        run_everything(\"everything\\\\Everything.exe\")\n        self.everything_dll = ctypes.WinDLL(os.path.join(os.path.dirname(os.path.abspath(__file__)), \"everything\", \"Everything64.dll\"))\n        self.everything_dll.Everything_SetSearchW.argtypes = [ctypes.c_wchar_p]\n        self.everything_dll.Everything_QueryW.argtypes = [ctypes.c_bool]\n        self.everything_dll.Everything_GetNumResults.restype = ctypes.c_uint32\n        self.everything_dll.Everything_GetResultFullPathNameW.argtypes = [ctypes.c_uint32, ctypes.c_wchar_p, ctypes.c_uint32]\n\nif __name__ == \"__main__\":\n    while True:\n        try:\n            request = input(\"<< \")\n            if not request: continue\n            \n            results = Search().run(request)\n            for f in results:\n                print(f)\n            print()\n                \n        except KeyboardInterrupt:\n            sys.exit()"}, {"path": "tool_call/tools/link_requests.py", "name": "link_requests.py", "size": 1834, "text": true, "content": "from bs4 import BeautifulSoup \nimport trafilatura \nimport requests, json\n\ndef clean_html(html):\n    soup = BeautifulSoup(html, \"lxml\")\n\n    for tag in soup([\n        \"script\", \"style\",\n        \"svg\", \"canvas\", \"iframe\",\n        \"noscript\", \"meta\", \"link\"\n    ]): tag.decompose()\n\n    return soup\n\ndef extract_text(html):\n    return trafilatura.extract(html,\n        include_links=False,\n        include_images=False,\n        include_tables=True\n    ) or \"\"\n\ndef extract_headings(soup):\n    headings = []\n\n    for tag in soup.find_all([\"h1\", \"h2\", \"h3\"]):\n        text = tag.get_text(\" \", strip=True)\n        if text:\n            headings.append({\n                \"level\": tag.name,\n                \"text\": text\n            })\n\n    return headings\n\ndef extract_links(soup):\n    links = []\n\n    for a in soup.find_all(\"a\", href=True):\n        text = a.get_text(\" \", strip=True)\n\n        links.append({\"text\": text, \"url\": a[\"href\"]})\n\n    return links\n\ndef extract_tables(soup):\n    tables = []\n\n    for table in soup.find_all(\"table\"):\n        rows = []\n\n        for tr in table.find_all(\"tr\"):\n            cells = [\n                cell.get_text(\" \", strip=True)\n                for cell in tr.find_all([\"th\", \"td\"])\n            ]\n\n            if cells: rows.append(cells)\n        if rows: tables.append(rows)\n\n    return tables\n\ndef page_to_json(html):\n    soup = clean_html(html)\n\n    return {\n        \"title\": soup.title.string.strip() if soup.title else \"\",\n        \"text\": extract_text(str(soup)),\n        \"headings\": extract_headings(soup),\n        \"links\": extract_links(soup),\n        \"tables\": extract_tables(soup)\n    }\n\ndef run(url):\n    return json.dumps(\n        page_to_json(requests.get(url).text), \n        ensure_ascii=False, indent=2\n    )"}, {"path": "tool_call/tools/read_file.py", "name": "read_file.py", "size": 1267, "text": true, "content": "import fitz \nimport tiktoken\nimport openpyxl\nfrom docx import Document\n\ndef context(text): \n    return text if len(tiktoken.encoding_for_model(\"gpt-5\").encode(text)) < 100000 else f\"Error: context too big, {len(text)} symbols\" \n\ndef pdf(file):  \n    text = \"\"\n    for page in fitz.open(file):\n        text += page.get_text()\n\n    return context(text)\n\ndef txt(file): \n    with open(file, \"r\", encoding=\"utf-8\") as f:\n        return context(f.read())\n\ndef excel(file):\n    return context(openpyxl.load_workbook(file))\n\ndef word(file):\n    return context(\"\\n\".join(p.text for p in Document(file).paragraphs))\n\ndef read(file): \n    typ = file.split(\".\")[-1]\n\n    for xl in ['xlsx', 'xls']:\n        if typ == xl: \n            return excel(file) \n\n    if typ == \"pdf\": \n        return pdf(file) \n    elif typ ==\"docx\": \n        return word(file)\n\n    try: \n        return txt(file)\n    except UnicodeDecodeError: \n        return f\"Unknown file format {typ}\"\n\ndef run(file): \n    text = read(file)\n\n    text = text.split(\"\\n\") \n    \n    result = \"\"\n\n    line_count = 1\n    for line in text: \n        result += str(line_count) + ((5 - len(str(line_count))) * \" \") + line + \"\\n\"\n        line_count += 1\n\n    return result"}, {"path": "tool_call/vision.py", "name": "vision.py", "size": 905, "text": true, "content": "import time, pyautogui\n\nclass VisionMode:\n    @staticmethod\n    def cursor_pos(x, y, duration=0):\n        pyautogui.moveTo(x, y, duration=duration)\n        return f\"success, cursor position: (X: {x}, Y: {y})\"\n    \n    @staticmethod\n    def type_on_keyboard(text): \n        pyautogui.write(text)\n\n    @staticmethod\n    def click(side): \n        match side: \n            case \"left\": pyautogui.leftClick()\n            case \"middle\": pyautogui.middleClick()\n            case \"right\": pyautogui.rightClick()\n        return f\"success\"\n\n    @staticmethod\n    def switch_to_classic_mode(): \n        return \"__classic mode__\"\n    \n    @staticmethod\n    def switch_to_coder_mode(): \n        return \"__coder mode__\"\n\n    @staticmethod\n    def time_sleep(sec): \n        time.sleep(sec)\n        return f\"{sec} have passed\"\n    \n    @staticmethod\n    def end(): \n        return \"end\""}, {"path": "UI.py", "name": "UI.py", "size": 8781, "text": true, "content": "import threading\nimport os\nimport shutil\nimport json\nimport time\nimport rich\nimport random\nimport sys\n\nfrom pyfiglet import figlet_format as ascii_text\nfrom rich.console import Console, Group\nfrom rich.panel import Panel\nfrom rich.align import Align\nfrom rich.columns import Columns\nfrom rich.live import Live\n\n\nclass Response:\n    def anim(self, text, typ):\n        self.writing = True\n\n        count = 0\n\n        with Live(\"\", refresh_per_second=144) as live:\n            if typ == \"loading\":\n                c3 = f\"rgb({int((rc1[0] + rc2[0]) / 2)},{int((rc1[1] + rc2[1]) / 2)},{int((rc1[2] + rc2[2]) / 2)})\"\n                c4 = f\"rgb({int(((rc1[0] * 2) + rc2[0]) / 3)},{int(((rc1[1] * 2) + rc2[1]) / 3)},{int(((rc1[2] * 2) + rc2[2]) / 3)})\"\n\n                while not self.stop_event.is_set():\n                    if \"Iteration\" in text:\n                        txt = text + random.choice([\n                                \" - thinking...\", \" - cogitating...\", \" - reasoning...\", \n                                \" - analyzing...\",  \" - considering...\",  \" - deliberating...\", \n                                \" - processing...\", \" - formulating...\", \" - evaluating...\"\n                            ]\n                        )\n                    else: txt = text\n\n                    for x in range(len(txt)):\n                        if self.stop_event.is_set():\n                            live.update(\"\")\n                            return\n                        if 0 <= count < 10:    asci = \"▀  \"\n                        elif 10 <= count < 20: asci = \"▄  \"\n                        elif 20 <= count < 30: asci = \" ▀ \"\n                        elif 30 <= count < 40: asci = \" ▄ \"\n                        elif 40 <= count < 50: asci = \"   \"\n                        output = \"\"\n\n                        for y, char in enumerate(txt):\n                            color = c1\n                            if (x - 2) == y or (x + 2) == y: color = c4\n                            if (x - 1) == y or (x + 1) == y: color = c3\n                            if x == y: color = c2\n\n                            output += f\"[{color}]{char}[/{color}]\"\n\n                        time.sleep(0.1)\n                        live.update(asci + output)\n\n                        if count <= 50:\n                            count += 1\n                        else:\n                            count = 0\n\n                live.update(\"\")\n                self.writing = False\n                return\n\n            elif typ == \"response\":\n                for i in range(len(text)):\n                    live.update(f\"[{c1}]{text[:i + 1]}[/{c1}]\")\n                    time.sleep(0.3 / len(text))\n\n        print()\n        self.writing = False\n        return\n\n    def __init__(self, max_iteration):\n        self.max_iteration = max_iteration\n        self.thread = None\n        self.stop_event = threading.Event()\n        self.writing = False\n\n    def write(self, txt, typ):\n        if self.thread and self.thread.is_alive():\n            self.stop_event.set()\n            self.thread.join(timeout=1)\n\n        self.stop_event = threading.Event()\n        self.thread = threading.Thread(target=lambda: self.anim(txt, typ), daemon=True)\n        self.thread.start()\n\ndef inputr(text=None, color=None):\n    try:\n        if text:\n            if color:\n                rich.print(f\"[{color}]{text}[/{color}]\", end=\"\", flush=True)\n            else:\n                print(text, end=\"\", flush=True)\n\n        return input()\n\n    except (KeyboardInterrupt, EOFError):\n        return \"/exit\"\n\n\ndef folder_linked():\n    error = False\n\n    while True:\n        if error:\n            rich.print(\"[red]This path does not exist[/red]\")\n\n        link = inputr('enter your folder path (\"None\" for undo link): ', c1 )\n\n        if os.path.exists(link):\n            while True:\n                gen_name = (\n                    \"GPT-5.6-LUNA?\"\n                    if metadata[\"gen_type\"] == \"api\"\n                    else \"AI\"\n                )\n\n                rich.print(\n                    f\"[{c1}]index folder with {gen_name} y/n \"\n                    f\"(This could cost a lot of tokens)[/{c1}]\"\n                )\n\n                match inputr(\"<< \", c1):\n                    case \"y\": return link, True\n                    case \"n\": return link, False\n\n        elif link == \"None\":\n            return None, None\n        elif not link:\n            continue\n        elif link == \"/exit\":\n            return\n        else:\n            error = True\n\n\ndef skills():\n    error = False\n\n    while True:\n        if error:\n            rich.print(\"[red]This path does not exist[/red]\")\n\n        link = inputr('link skills folder (\"None\" for undo skill path) << ', c1)\n\n        if not link:\n            continue\n\n        elif link == \"/exit\" or link == \"None\":\n            return\n\n        else:\n            if os.path.exists(link):\n                return link\n\n            else:\n                error = True\n                continue\n\n\ndef telegram():\n    def enter_api():\n        return inputr(\"telegram bot api key << \", c1)\n\n    api_key = (\n        metadata.get(\"tg_bot_api\")\n        if metadata.get(\"tg_bot_api\")\n        else enter_api()\n    )\n\n    if api_key != \"/exit\":\n        rich.print(f\"[{c1}]commands:\\n  /run\\n  /change_api[/{c1}]\")\n\n        while True:\n            choose = inputr(\"<< \")\n\n            for chs in [\"/run\", \"/exit\"]:\n                if choose == chs:\n                    return api_key, choose\n\n            if choose == \"/change_api\":\n                api_key = enter_api()\n\n    else:\n        return \"/exit\"\n\n\ndef main(model, link_folder, vision_mode, coder_mode, gen_type):\n    model = os.path.basename(model)\n\n    model = model.replace(\"-it\", \"\")\n\n    if \"-QAT-Q\" in model:\n        model = model.split(\"-QAT-Q\")[0]\n\n    for x in range(10):\n        if f\"Q{x}_\" in model:\n            model = model.split(f\"Q{x}_\")[0]\n\n    model = model.replace(\"-\", \" \")\n\n    def render():\n        right_panel_size = (\n            shutil.get_terminal_size().columns - 53\n        )\n\n        os.system(\"cls\")\n\n        console.print(\n            Panel(\n                Columns(\n                    [\n                        Align.left(\n                            Panel(\n                                f\"[{c1}]{ascii_text('holy\\nspirit', font='ansi_regular')}[/{c1}]\", width=48, height=14, border_style=c2\n                            )\n                        ),\n\n                        Align.right(\n                            Group(\n                                Panel(\n                                    Align.left(\n                                        f\"[{c1}]Fuck [bold][rgb(255,144,0)]claude[/rgb(255,144,0)][/bold]\\nMade with ❤️ for [bold][rgb(36,150,255)]Ic[/rgb(36,150,255)]e[rgb(255,30,0)]l[/rgb(255,30,0)]a[rgb(36,150,255)]nd[/rgb(36,150,255)][/bold][/{c1}]\"\n                                    ),\n                                    width=right_panel_size, height=4, border_style=c2\n                                ),\n\n                                Panel(\n                                    Align.left(f\"[{c1}]\" f\"Model: {model.upper()}\\n\" f\"Vision Mode: {str(vision_mode)}; \" f\"Coder Mode: {coder_mode}\\n\" f\"'/commands' to see actual commands\" f\"[/{c1}]\"),\n                                    width=right_panel_size, height=6,  border_style=c2 \n                                ),\n\n                                Panel(\n                                    Align.left(f\"[{c1}]Linked Folder: {link_folder}[/{c1}]\"), width=right_panel_size, height=4, border_style=c2\n                                )\n                            )\n                        )\n                    ],\n                    expand=True\n                ),\n\n                title=f\"[{c1}]holy spirit 0.7 | CTRL+C for exit[/{c1}]\", border_style=c2\n            )\n        )\n\n    render()\n\nconsole = Console()\n\ntry:\n    with open(\"metadata/metadata.json\", \"r\", encoding=\"utf-8\") as f:\n        metadata = json.load(f)\n\n        c1 = metadata[\"colors\"].get(\"color1\")\n        c2 = metadata[\"colors\"].get(\"color2\")\n\n        def parse_rgb(color):\n            color = color.replace(\"rgb(\", \"\")\n            color = color.replace(\")\", \"\")\n\n            return tuple(\n                int(x.strip())\n                for x in color.split(\",\")\n            )\n\n        rc1 = parse_rgb(c1)\n        rc2 = parse_rgb(c2)\n\nexcept (FileNotFoundError, KeyError, ValueError):\n    c1 = \"rgb(255,255,255)\"\n    c2 = \"rgb(125,125,125)\"\n\n    rc1 = (255, 255, 255)\n    rc2 = (125, 125, 125)"}];const tree=document.getElementById('tree'),code=document.getElementById('code'),filename=document.getElementById('filename'),filepath=document.getElementById('filepath'),type=document.getElementById('type'),search=document.getElementById('search');
-document.getElementById('count').textContent=files.length+' files';
-function size(n){return n<1024?n+' B':(n/1024).toFixed(1)+' KB'}
-function render(q=''){tree.replaceChildren();let shown=files.filter(f=>f.path.toLowerCase().includes(q.toLowerCase()));let groups={};shown.forEach(f=>{let d=f.path.includes('/')?f.path.slice(0,f.path.lastIndexOf('/')):'./';(groups[d]??=[]).push(f)});Object.keys(groups).sort().forEach(dir=>{let label=document.createElement('div');label.className='folder';label.textContent='▾ '+dir;tree.append(label);groups[dir].forEach(f=>{let b=document.createElement('button');b.className='file';b.textContent=(f.text?'▹ ':'⊘ ')+f.name;b.title=f.path;b.onclick=()=>open(f,b);tree.append(b)})});if(!shown.length)tree.innerHTML='<div class="empty">Файлы не найдены.</div>'}
-function escapeHtml(value){return value.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-function highlight(source,path){
-  const rx=/(#[^\r\n]*|\/\/[^\r\n]*|\/\*[\s\S]*?\*\/)|("(?:\\[\s\S]|[^"\\\r\n])*"|'(?:\\[\s\S]|[^'\\\r\n])*')|\b(\d+(?:\.\d+)?)\b|\b(import|from|def|class|return|if|else|elif|for|while|in|try|except|finally|with|as|lambda|yield|async|await|pass|break|continue|True|False|None|function|const|let|var|new|this|export|default|extends|public|private|static|void|int|bool|string)\b|\b(print|len|range|str|int|list|dict|json|os|sys|document|window|console|fetch|Array|Object|String|Number)\b|\b([A-Za-z_]\w*)(?=\s*\()|\b([A-Z][A-Za-z0-9_]*)\b/g;
-  let result='',last=0;
-  source.replace(rx,(match,comment,string,number,keyword,builtin,fn,klass,offset)=>{
-    result+=escapeHtml(source.slice(last,offset));
-    const type=comment?'comment':string?'string':number?'number':keyword?'keyword':builtin?'builtin':fn?'function':'class';
-    result+='<span class="tok-'+type+'">'+escapeHtml(match)+'</span>';
-    last=offset+match.length;
-    return match;
-  });
-  return result+escapeHtml(source.slice(last));
+'use strict';
+const files = [
+
+  {
+    path: 'AI.py',
+    name: 'AI.py',
+    text: true
+  },
+
+  {
+    path: 'parsing.py',
+    name: 'parsing.py',
+    text: true
+  },
+
+  {
+    path: 'main.py',
+    name: 'main.py',
+    text: true
+  },
+
+  {
+    path: 'config.json',
+    name: 'config.json',
+    text: true
+  }
+];
+
+const tree = document.getElementById('tree');
+const search = document.getElementById('search');
+
+const count = document.getElementById('count');
+
+const filename = document.getElementById('filename');
+const filepath = document.getElementById('filepath');
+const type = document.getElementById('type');
+
+const code = document.getElementById('code');
+
+function size(bytes) {
+
+  if (bytes < 1024) {
+    return bytes + ' B';
+  }
+
+  if (bytes < 1024 * 1024) {
+    return (bytes / 1024).toFixed(1) + ' KB';
+  }
+
+  return (bytes / 1024 / 1024).toFixed(1) + ' MB';
 }
-function open(f,b){document.querySelectorAll('.file.active').forEach(x=>x.classList.remove('active'));b.classList.add('active');filename.textContent=f.name;filepath.textContent='HS0.7SRC / '+f.path;type.textContent=f.text?size(f.size):'BINARY · '+size(f.size);code.classList.toggle('empty',!f.text);code.innerHTML=f.text?highlight(f.content,f.path):'Этот бинарный файл нельзя показать в браузере.';}
-search.addEventListener('input',e=>render(e.target.value));render();let first=files.find(f=>f.text);if(first){let button=[...document.querySelectorAll('.file')].find(x=>x.title===first.path);if(button)open(first,button)}
+
+function escapeHtml(value) {
+
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+}
+
+function highlight(source, path) {
+
+  const rx =
+    /((?:#[^\r\n]*|\/\/[^\r\n]*|\/\*[\s\S]*?\*\/))|("(?:\\[\s\S]|[^"\\\r\n])*"|'(?:\\[\s\S]|[^'\\\r\n])*'|`(?:\\[\s\S]|[^`\\\r\n])*`)|\b(\d+(?:\.\d+)?)\b|\b(import|from|def|class|return|if|else|elif|for|while|in|try|except|finally|with|as|lambda|yield|async|await|pass|break|continue|True|False|None|function|const|let|var|new|this|export|default|extends|public|private|static|void|int|bool|string|struct|enum|using|namespace|include|switch|case|throw|throws|new)\b|\b(print|len|range|str|int|list|dict|json|os|sys|document|window|console|fetch|Array|Object|String|Number|Math|Promise|require|open|super)\b|\b([A-Za-z_]\w*)(?=\s*\()|\b([A-Z][A-Za-z0-9_]*)\b/g;
+
+
+  let result = '';
+  let last = 0;
+
+
+  source.replace(
+    rx,
+    (
+      match,
+      comment,
+      string,
+      number,
+      keyword,
+      builtin,
+      fn,
+      klass,
+      offset
+    ) => {
+
+      result += escapeHtml(
+        source.slice(last, offset)
+      );
+
+
+      let tokenType;
+
+
+      if (comment) {
+        tokenType = 'comment';
+
+      } else if (string) {
+        tokenType = 'string';
+
+      } else if (number) {
+        tokenType = 'number';
+
+      } else if (keyword) {
+        tokenType = 'keyword';
+
+      } else if (builtin) {
+        tokenType = 'builtin';
+
+      } else if (fn) {
+        tokenType = 'function';
+
+      } else {
+        tokenType = 'class';
+      }
+
+
+      result +=
+        '<span class="tok-' +
+        tokenType +
+        '">' +
+        escapeHtml(match) +
+        '</span>';
+
+
+      last = offset + match.length;
+
+      return match;
+    }
+  );
+
+
+  result += escapeHtml(
+    source.slice(last)
+  );
+
+
+  return result;
+}
+
+function render(query = '') {
+
+  tree.replaceChildren();
+
+
+  const normalizedQuery =
+    query.toLowerCase().trim();
+
+
+  const shown = files.filter(file =>
+    file.path
+      .toLowerCase()
+      .includes(normalizedQuery)
+  );
+
+
+  const groups = {};
+
+
+  shown.forEach(file => {
+
+    const directory =
+      file.path.includes('/')
+        ? file.path.slice(
+            0,
+            file.path.lastIndexOf('/')
+          )
+        : './';
+
+
+    if (!groups[directory]) {
+      groups[directory] = [];
+    }
+
+
+    groups[directory].push(file);
+
+  });
+
+
+  Object.keys(groups)
+    .sort()
+    .forEach(directory => {
+
+      const label =
+        document.createElement('div');
+
+
+      label.className = 'folder';
+
+      label.textContent =
+        '▾ ' + directory;
+
+
+      tree.append(label);
+
+
+      groups[directory]
+        .sort((a, b) =>
+          a.name.localeCompare(
+            b.name,
+            'ru',
+            { sensitivity: 'base' }
+          )
+        )
+        .forEach(file => {
+
+          const button =
+            document.createElement('button');
+
+
+          button.type = 'button';
+
+          button.className = 'file';
+
+          button.textContent =
+            (file.text ? '▹ ' : '⊘ ') +
+            file.name;
+
+          button.title = file.path;
+
+
+          button.addEventListener(
+            'click',
+            () => openFile(file, button)
+          );
+
+
+          tree.append(button);
+
+        });
+
+    });
+
+
+  if (!shown.length) {
+
+    tree.innerHTML =
+      '<div class="empty">' +
+      'Файлы не найдены.' +
+      '</div>';
+
+  }
+
+}
+
+async function openFile(file, button) {
+
+  document
+    .querySelectorAll('.file.active')
+    .forEach(element =>
+      element.classList.remove('active')
+    );
+
+
+  button.classList.add('active');
+
+
+  filename.textContent =
+    file.name;
+
+
+  filepath.textContent =
+    'HS0.7SRC / ' + file.path;
+
+
+  /*
+   * Бинарные файлы
+   */
+
+  if (!file.text) {
+
+    type.textContent = 'BINARY';
+
+    code.className = 'empty';
+
+    code.textContent =
+      'Этот бинарный файл нельзя показать в браузере.';
+
+    return;
+  }
+
+
+  /*
+   * Состояние загрузки
+   */
+
+  type.textContent = 'LOADING...';
+
+  type.classList.add('status-loading');
+
+  code.className = 'empty';
+
+  code.textContent =
+    'Загрузка исходника...';
+
+
+  try {
+
+    const response =
+      await fetch(
+        'HS0.7SRC/' + file.path,
+        {
+          cache: 'no-cache'
+        }
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        'HTTP ' + response.status
+      );
+
+    }
+
+
+    const source =
+      await response.text();
+
+
+    /*
+     * Размер реального файла.
+     *
+     * Здесь используется количество символов,
+     * поэтому для большинства исходников этого
+     * достаточно для отображения.
+     */
+
+    type.textContent =
+      size(
+        new TextEncoder().encode(source).length
+      );
+
+
+    type.classList.remove(
+      'status-loading',
+      'status-error'
+    );
+
+
+    code.className = '';
+
+    code.innerHTML =
+      highlight(
+        source,
+        file.path
+      );
+
+
+  } catch (error) {
+
+    console.error(
+      'Не удалось загрузить файл:',
+      error
+    );
+
+
+    type.textContent = 'ERROR';
+
+    type.classList.remove(
+      'status-loading'
+    );
+
+    type.classList.add(
+      'status-error'
+    );
+
+
+    code.className = 'empty';
+
+
+    code.textContent =
+      'Не удалось загрузить файл.\n\n' +
+      error.message +
+      '\n\n' +
+      'Убедитесь, что сайт запущен через HTTP-сервер, ' +
+      'а файл существует в папке HS0.7SRC.';
+
+  }
+
+}
+search.addEventListener(
+  'input',
+  event => render(event.target.value)
+);
+
+
+count.textContent =
+  files.length + ' files';
+
+
+render()
+
+const first =
+  files.find(file => file.text);
+
+
+if (first) {
+
+  const button =
+    [...document.querySelectorAll('.file')]
+      .find(element =>
+        element.title === first.path
+      );
+
+
+  if (button) {
+    openFile(first, button);
+  }
+
+}
 </script>
-</body></html>
+
+</body>
+</html>
+```
