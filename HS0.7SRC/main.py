@@ -98,12 +98,7 @@ class Main:
                 else: os.remove("metadata/folder_linked_data.txt")
                 self.folder_linked = link
                 yield "/reset"
-
-            case "/my_skill": 
-                with open("notes/recommended_skills.txt", "r", encoding="utf-8") as f: 
-                    self.ui.notes(f.read(), "SKILL")
-                return 
-            
+                
             case "/author": 
                 self.ui.notes("Made by [bold]giorgi1805[/bold] with ❤️ for [bold][rgb(36,150,255)]Ic[/rgb(36,150,255)]e[rgb(255,30,0)]l[/rgb(255,30,0)]a[rgb(36,150,255)]nd[/rgb(36,150,255)][/bold]", title="author")
                 return
